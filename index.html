@@ -3,90 +3,157 @@
 <head>
   <title>Caroline is upset, send help!</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       text-align: center;
-      background: linear-gradient(to bottom right, #ffe6f0, #fff0f5);
+      background: radial-gradient(circle at top, #ffe6f5, #ffd6eb, #fff0f8);
       padding: 20px;
+      overflow-x: hidden;
+      color: black;
+    }
+
+    /* ✨ FLOATING GLITTER */
+    .glitter {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.9;
+      box-shadow: 0 0 10px white, 0 0 20px pink;
+      animation: floatUp linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 0; }
+      20% { opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    /* 💎 CURSOR DIAMOND SPARKLES */
+    .cursor-sparkle {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: white;
+      transform: rotate(45deg);
+      pointer-events: none;
+      z-index: 999;
+      box-shadow: 0 0 12px white, 0 0 25px pink;
+      animation: sparkleFade 0.7s ease-out forwards;
+    }
+
+    @keyframes sparkleFade {
+      from { transform: rotate(45deg) scale(1); opacity: 1; }
+      to { transform: rotate(45deg) scale(0.2); opacity: 0; }
     }
 
     .container {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 35px;
       max-width: 650px;
       margin: auto;
-      box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+      box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
+      border: 1px solid rgba(255,255,255,0.6);
+      animation: floaty 6s ease-in-out infinite;
+    }
+
+    @keyframes floaty {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
     }
 
     .title {
-      font-size: 28px;
-      margin-bottom: 15px;
-      font-weight: 700;
+      font-family: 'Great Vibes', cursive;
+      font-size: 42px;
+      margin-bottom: 20px;
+      color: black;
     }
 
     .progress-bar {
       width: 100%;
-      height: 8px;
-      background: #f3d1e0;
-      border-radius: 10px;
+      height: 10px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 20px;
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .progress {
       height: 100%;
       width: 0%;
-      background: linear-gradient(to right, #ff8fc4, #ffb6d9);
-      transition: width 0.3s ease;
+      background: linear-gradient(90deg, #ff8fc4, #ffc1e3, #ff8fc4);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+      transition: width 0.4s ease;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% }
+      100% { background-position: 200% }
     }
 
     .question {
       font-size: 22px;
       margin: 20px 0;
       font-weight: 500;
+      color: black;
+      animation: fadeIn 0.5s ease forwards;
     }
 
     .answers {
       display: grid;
-      gap: 12px;
+      gap: 14px;
+      position: relative;
+      z-index: 2;
     }
 
     .answer {
-      border-radius: 12px;
-      padding: 15px;
+      border-radius: 30px;
+      padding: 16px;
       cursor: pointer;
       background: linear-gradient(135deg, #ffe4ec, #ffd6e7);
       border: 2px solid #ffc1d6;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       text-align: left;
+      position: relative;
+      z-index: 2;
+      color: black;
     }
 
     .answer:hover {
-      transform: scale(1.02);
-      background: linear-gradient(135deg, #ffd6e7, #ffbfdc);
-      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+      transform: scale(1.04);
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.35);
     }
 
     .back-btn {
-      margin-top: 20px;
-      padding: 10px 16px;
-      border-radius: 10px;
+      margin-top: 25px;
+      padding: 12px 20px;
+      border-radius: 20px;
       border: none;
-      background: #ffd6e7;
+      background: linear-gradient(135deg, #ffc1e3, #ff8fc4);
       cursor: pointer;
       font-family: 'Poppins', sans-serif;
       font-weight: 500;
+      color: black;
     }
 
-    .back-btn:hover {
-      background: #ffbfdc;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -101,6 +168,25 @@
 
 <script>
 let historyStack = [];
+
+/* ✨ BACKGROUND GLITTER */
+for (let i = 0; i < 80; i++) {
+  const g = document.createElement("div");
+  g.className = "glitter";
+  g.style.left = Math.random() * 100 + "vw";
+  g.style.animationDuration = (5 + Math.random() * 10) + "s";
+  document.body.appendChild(g);
+}
+
+/* 💎 DIAMOND CURSOR TRAIL */
+document.addEventListener("mousemove", (e) => {
+  const s = document.createElement("div");
+  s.className = "cursor-sparkle";
+  s.style.left = e.clientX + "px";
+  s.style.top = e.clientY + "px";
+  document.body.appendChild(s);
+  setTimeout(() => s.remove(), 700);
+});
 
 const quiz = {
   start: {
